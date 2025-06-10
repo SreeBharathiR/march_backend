@@ -5,6 +5,7 @@ const userRoutes = require("./routes/userRoutes");
 dotenv.config();
 
 const server = express();
+server.use(express.json());
 
 // const connection = async () => {
 //   try {

@@ -16,14 +16,14 @@ const userSchema = new mongoose.Schema(
       minLength: 6,
     },
     mobile: Number,
-    isCustomer: {
-      type: Boolean,
-      default: true,
-    },
     age: {
       type: Number,
       min: 18,
       max: 80,
+    },
+    isActive: {
+      type: Boolean,
+      default: true,
     },
   },
   {
