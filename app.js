@@ -2,6 +2,7 @@ const express = require("express");
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const userRoutes = require("./routes/userRoutes");
+const productRoutes = require("./routes/productRoutes");
 dotenv.config();
 
 const server = express();
@@ -28,6 +29,7 @@ server.get("/", (req, res) => {
 });
 
 server.use("/users", userRoutes);
+server.use("/products", productRoutes);
 
 server.listen(process.env.PORT, () => {
   console.log("Server is running...");
