@@ -3,6 +3,7 @@ const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const userRoutes = require("./routes/userRoutes");
 const productRoutes = require("./routes/productRoutes");
+const globalErrorHandler = require("./middlewares/errorHandler");
 dotenv.config();
 
 const server = express();
@@ -30,6 +31,15 @@ server.get("/", (req, res) => {
 
 server.use("/users", userRoutes);
 server.use("/products", productRoutes);
+
+server.use((req, res, next) => {
+  console.log(req);
+  const error = new Error(`${req.originalUrl} is not available in the server.`);
+  error.statusCode = 404;
+  next(error);
+});
+
+server.use(globalErrorHandler);
 
 server.listen(process.env.PORT, () => {
   console.log("Server is running...");

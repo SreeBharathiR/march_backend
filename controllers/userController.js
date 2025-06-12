@@ -16,7 +16,7 @@ const getAllUsers = async (req, res) => {
   }
 };
 
-const getUserById = async (req, res) => {
+const getUserById = async (req, res, next) => {
   try {
     // Get the id from routes
     const { userId } = req.params;
@@ -35,9 +35,7 @@ const getUserById = async (req, res) => {
       user,
     });
   } catch (error) {
-    res.status(500).json({
-      message: error.message,
-    });
+    next(error);
   }
 };
 

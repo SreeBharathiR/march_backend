@@ -10,12 +10,15 @@ const productSchema = new mongoose.Schema(
     price: {
       type: Number,
       required: true,
+      min: 100,
     },
     description: {
       type: String,
+      minLength: 10,
     },
     category: {
       type: String,
+      required: true,
     },
     image: {
       type: String,
