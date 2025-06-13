@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const userRoutes = require("./routes/userRoutes");
 const productRoutes = require("./routes/productRoutes");
 const globalErrorHandler = require("./middlewares/errorHandler");
+const authRoutes = require("./routes/authRoutes");
 dotenv.config();
 
 const server = express();
@@ -31,6 +32,7 @@ server.get("/", (req, res) => {
 
 server.use("/users", userRoutes);
 server.use("/products", productRoutes);
+server.use("/auth", authRoutes);
 
 server.use((req, res, next) => {
   console.log(req);
