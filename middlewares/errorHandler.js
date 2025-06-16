@@ -3,6 +3,11 @@ const globalErrorHandler = async (err, req, res, next) => {
 
   console.log(err);
 
+  if (err.name === "TokenExpiredError") {
+    statusCode = 401;
+    message = `Session Expired. Login again`;
+  }
+
   if (err.name === "CastError") {
     statusCode = 400;
     message = `Invalid ${err.path} : ${err.value}`;

@@ -6,13 +6,36 @@ const {
   updateProduct,
   deleteProduct,
 } = require("../controllers/productController");
+const { protect, authorize } = require("../middlewares/authMiddlewares");
 
 const productRoutes = express.Router();
 
-productRoutes.post("/", createProduct);
+// Anyone - done
 productRoutes.get("/", getAllProducts);
-productRoutes.get("/:id", getProductById);
-productRoutes.put("/:id", updateProduct);
-productRoutes.delete("/:id", deleteProduct);
+
+// Login users - Done
+productRoutes.get("/:id", protect, getProductById);
+
+// Login users and Admin or Super_admin
+productRoutes.post(
+  "/",
+  protect,
+  authorize(["admin", "super_admin"]),
+  createProduct
+);
+productRoutes.put(
+  "/:id",
+  protect,
+  authorize(["admin", "super_admin"]),
+  updateProduct
+);
+
+// Login users and Super_admin
+productRoutes.delete(
+  "/:id",
+  protect,
+  authorize(["super_admin"]),
+  deleteProduct
+);
 
 module.exports = productRoutes;

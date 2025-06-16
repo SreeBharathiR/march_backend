@@ -93,4 +93,12 @@ const logout = async (req, res, next) => {
   }
 };
 
-module.exports = { register, login, logout };
+const verify = (req, res, next) => {
+  res.status(200).json({
+    status: "Success",
+    message: "Valid login",
+    userData: req.user,
+  });
+};
+
+module.exports = { register, login, logout, verify };

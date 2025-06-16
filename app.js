@@ -1,6 +1,7 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
+const cookieParser = require("cookie-parser");
 const userRoutes = require("./routes/userRoutes");
 const productRoutes = require("./routes/productRoutes");
 const globalErrorHandler = require("./middlewares/errorHandler");
@@ -8,7 +9,8 @@ const authRoutes = require("./routes/authRoutes");
 dotenv.config();
 
 const server = express();
-server.use(express.json());
+server.use(express.json()); // JSON to Object
+server.use(cookieParser());
 
 // const connection = async () => {
 //   try {
