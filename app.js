@@ -1,6 +1,7 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
+const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const userRoutes = require("./routes/userRoutes");
 const productRoutes = require("./routes/productRoutes");
@@ -11,6 +12,12 @@ dotenv.config();
 const server = express();
 server.use(express.json()); // JSON to Object
 server.use(cookieParser());
+server.use(
+  cors({
+    origin: [process.env.CLIENT_URL],
+    credentials: true,
+  })
+);
 
 // const connection = async () => {
 //   try {
@@ -24,7 +31,7 @@ server.use(cookieParser());
 // connection();
 
 mongoose
-  .connect("mongodb://localhost:27017/ecomDB")
+  .connect(process.env.MONGO_URL)
   .then(console.log("DB Connected"))
   .catch((error) => console.log("Error on DB Connection ", error.message));
 
